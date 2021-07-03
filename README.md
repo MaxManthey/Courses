@@ -1,1 +1,1 @@
-Follow along for some courses
+## Courses
