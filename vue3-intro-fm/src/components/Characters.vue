@@ -5,39 +5,71 @@
   <ul>
     <li v-for="character in characterList" :key="character.name">
       <div class="all-characters">
-        <p>{{ character.name }}</p>
+        <p>{{ character.name }} - {{ character.bending }}</p>
         <button @click="addFavouriteCharacter(character)">🌟 Favourite</button>
       </div>
     </li>
   </ul>
   <input v-model="newCharacter" @keyup.enter="addCharacter()" />
+  <h2>Character Statistics</h2>
+  <ul>
+    <li v-for="(amount, type) in bendingSummary" :key="type">{{ type }}: {{ amount }}</li>
+  </ul>
   <h2>Favourite Characters</h2>
   <ul>
-    <li v-for="character in favouriteCharacters" :key="character.name">{{ character.name }}</li>
+    <li v-for="character in favouriteCharacters" :key="character.name">
+      {{ character.name }} - {{ character.bending }}
+    </li>
   </ul>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 
 type Characters = {
   name: string
+  element: Array<'Fire' | 'Water' | 'Earth' | 'Air'>
+  bending: 'avatar' | 'Fire' | 'Water' | 'Earth' | 'Air' | 'none'
 }
 
 export default defineComponent({
-  name: 'StringList',
+  name: 'ATLA Characters',
   setup() {
     const characterList = ref<Characters[]>([
-      { name: 'Aang' },
-      { name: 'Katara' },
-      { name: 'Sokka' },
-      { name: 'Toph' }
+      { name: 'Aang', bending: 'avatar', element: ['Fire', 'Water', 'Earth', 'Air'] },
+      { name: 'Katara', bending: 'Water', element: ['Water'] },
+      { name: 'Sokka', bending: 'none', element: [] },
+      { name: 'Toph', bending: 'Earth', element: ['Earth'] },
+      { name: 'Zuko', bending: 'Fire', element: ['Fire'] },
+      { name: 'Azula', bending: 'Fire', element: ['Fire'] }
     ])
     let newCharacter = ref<string>('')
     const favouriteCharacters = ref<Characters[]>([])
 
+    const bendingSummary = computed(() => {
+      const statistics = {
+        Fire: 0,
+        Water: 0,
+        Earth: 0,
+        Air: 0,
+        None: 0
+      }
+
+      characterList.value.forEach((character) => {
+        character.element.forEach((element) => {
+          statistics[element]++
+        })
+      })
+
+      characterList.value.forEach(({ element }) => {
+        if (element.length === 0) statistics['None']++
+      })
+
+      return statistics
+    })
+
     const addCharacter = () => {
-      characterList.value.push({ name: newCharacter.value })
+      characterList.value.push({ name: newCharacter.value, bending: 'none', element: [] })
       newCharacter.value = ''
     }
 
@@ -49,6 +81,7 @@ export default defineComponent({
       characterList,
       newCharacter,
       favouriteCharacters,
+      bendingSummary,
       addCharacter,
       addFavouriteCharacter
     }
