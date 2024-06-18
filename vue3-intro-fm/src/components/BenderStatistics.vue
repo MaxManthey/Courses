@@ -1,9 +1,8 @@
 <template>
   <h2>Character Statistics</h2>
-  <ul>
+  <ul class="margin-bottom">
     <li v-for="(amount, type) in bendingSummary" :key="type">{{ type }}: {{ amount }}</li>
   </ul>
-  <p>{{ msg }}</p>
 </template>
 
 <script lang="ts">
@@ -16,13 +15,9 @@ export default defineComponent({
     characterList: {
       required: true,
       type: Array as PropType<Character[]>
-    },
-    msg: {
-      type: String
     }
   },
   setup(props) {
-    console.log('Test', props.characterList)
     const bendingSummary = computed(() => {
       const statistics = {
         Fire: 0,
