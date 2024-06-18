@@ -1,8 +1,8 @@
 <template>
-  <h1>My Characters</h1>
-  <hr />
+  <h1>ATLA Characters</h1>
+  <hr class="margin-bottom" />
   <h2>All Characters</h2>
-  <ul>
+  <ul class="margin-bottom">
     <li v-for="character in characterList" :key="character.name">
       <div class="all-characters">
         <p>{{ character.name }} - {{ character.element }}</p>
@@ -10,9 +10,9 @@
       </div>
     </li>
   </ul>
-  <input v-model="newCharacter" @keyup.enter="addCharacter()" />
+  <AddCharacter @createCharacter="addCharacter" />
   <BenderStatistics :character-list="characterList" />
-  <h2>Favourite Characters</h2>
+  <h2 v-if="favouriteCharacters.length">Favourite Characters</h2>
   <ul>
     <li v-for="character in favouriteCharacters" :key="character.name">
       {{ character.name }} - {{ character.element }}
@@ -23,12 +23,14 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import BenderStatistics from './BenderStatistics.vue'
+import AddCharacter from './AddCharacter.vue'
 import type { Character } from '@/models/Character.type'
 
 export default defineComponent({
   name: 'AvatarCharacters',
   components: {
-    BenderStatistics
+    BenderStatistics,
+    AddCharacter
   },
   setup() {
     const characterList = ref<Character[]>([
@@ -39,23 +41,22 @@ export default defineComponent({
       { name: 'Zuko', element: ['Fire'] },
       { name: 'Azula', element: ['Fire'] }
     ])
-    let newCharacter = ref<string>('')
     const favouriteCharacters = ref<Character[]>([])
 
-    const addCharacter = () => {
-      characterList.value.push({ name: newCharacter.value, element: [] })
-      newCharacter.value = ''
+    const addCharacter = (name: string) => {
+      characterList.value.push({ name, element: [] })
     }
 
     const addFavouriteCharacter = (character: Character) => {
-      favouriteCharacters.value.push(character)
+      if (!favouriteCharacters.value.map((char) => char.name).includes(character.name)) {
+        favouriteCharacters.value.push(character)
+      }
     }
 
     return {
       characterList,
-      newCharacter,
-      favouriteCharacters,
       addCharacter,
+      favouriteCharacters,
       addFavouriteCharacter
     }
   }
