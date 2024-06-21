@@ -1,36 +1,45 @@
 <template>
-  <h1>ATLA Characters</h1>
-  <hr class="margin-bottom" />
-  <h2>All Characters</h2>
-  <ul class="margin-bottom">
-    <li v-for="character in characterList" :key="character.name">
-      <div class="all-characters">
-        <p>{{ character.name }} - {{ character.element }}</p>
-        <button @click="addFavouriteCharacter(character)">🌟 Favourite</button>
-      </div>
-    </li>
-  </ul>
-  <AddCharacter @createCharacter="addCharacter" />
-  <BenderStatistics :character-list="characterList" />
-  <h2 v-if="favouriteCharacters.length">Favourite Characters</h2>
-  <ul>
-    <li v-for="character in favouriteCharacters" :key="character.name">
-      {{ character.name }} - {{ character.element }}
-    </li>
-  </ul>
+  <BaseLayout>
+    <template #character-list>
+      <ul class="margin-bottom">
+        <li v-for="character in characterList" :key="character.name">
+          <div class="all-characters">
+            <p>{{ character.name }} - {{ character.element }}</p>
+            <button @click="addFavouriteCharacter(character)">🌟 Favourite</button>
+          </div>
+        </li>
+      </ul>
+    </template>
+    <template #add-character>
+      <AddCharacter @createCharacter="addCharacter" />
+    </template>
+    <template #statistics>
+      <BenderStatistics :character-list="characterList" />
+    </template>
+    <template #favorites>
+      <h2 v-if="favouriteCharacters.length">Favourite Characters</h2>
+      <ul>
+        <li v-for="character in favouriteCharacters" :key="character.name">
+          {{ character.name }} - {{ character.element }}
+        </li>
+      </ul>
+    </template>
+  </BaseLayout>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import BenderStatistics from './BenderStatistics.vue'
 import AddCharacter from './AddCharacter.vue'
+import BaseLayout from './BaseLayout.vue'
 import type { Character } from '@/models/Character.type'
 
 export default defineComponent({
   name: 'AvatarCharacters',
   components: {
     BenderStatistics,
-    AddCharacter
+    AddCharacter,
+    BaseLayout
   },
   setup() {
     const characterList = ref<Character[]>([
