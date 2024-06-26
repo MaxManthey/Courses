@@ -1,5 +1,4 @@
 <template>
-  <h2>Character Statistics</h2>
   <ul class="margin-bottom">
     <li v-for="(amount, type) in bendingSummary" :key="type">{{ type }}: {{ amount }}</li>
   </ul>

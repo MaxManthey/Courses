@@ -1,18 +1,22 @@
 <template>
-  <h2>Add new Character</h2>
-  <input
+  <Input
+    class="max-w-xs"
     placeholder="New Character"
     v-model="newCharacter"
     @keyup.enter="addCharacter()"
-    class="margin-bottom"
   />
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import { Input } from '@/components/ui/input'
 
 export default defineComponent({
   name: 'AddCharacter',
+  components: {
+    // eslint-disable-next-line vue/no-reserved-component-names
+    Input
+  },
   emits: {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     createCharacter: (_name: string) => true

@@ -1,8 +1,12 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <TestComponent />
   </div>
 </template>
+
+<script setup lang="ts">
+import TestComponent from '../components/TestComponent.vue'
+</script>
 
 <style>
 @media (min-width: 1024px) {

@@ -1,11 +1,13 @@
 <template>
-  <BaseLayout>
+  <AvatarLayout>
     <template #character-list>
       <ul class="margin-bottom">
         <li v-for="character in characterList" :key="character.name">
           <div class="all-characters">
             <p>{{ character.name }} - {{ character.element }}</p>
-            <button @click="addFavouriteCharacter(character)">🌟 Favourite</button>
+            <Button severity="secondary" @click="addFavouriteCharacter(character)"
+              >Favourite</Button
+            >
           </div>
         </li>
       </ul>
@@ -24,22 +26,25 @@
         </li>
       </ul>
     </template>
-  </BaseLayout>
+  </AvatarLayout>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import BenderStatistics from './BenderStatistics.vue'
 import AddCharacter from './AddCharacter.vue'
-import BaseLayout from './BaseLayout.vue'
+import AvatarLayout from './AvatarLayout.vue'
 import type { Character } from '@/models/Character.type'
+import { Button } from '@/components/ui/button'
 
 export default defineComponent({
   name: 'AvatarCharacters',
   components: {
     BenderStatistics,
     AddCharacter,
-    BaseLayout
+    AvatarLayout,
+    // eslint-disable-next-line vue/no-reserved-component-names
+    Button
   },
   setup() {
     const characterList = ref<Character[]>([
@@ -65,6 +70,7 @@ export default defineComponent({
     return {
       characterList,
       addCharacter,
+
       favouriteCharacters,
       addFavouriteCharacter
     }
@@ -82,7 +88,8 @@ h1 {
 
 .all-characters {
   display: flex;
+  align-items: center;
   gap: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 </style>
