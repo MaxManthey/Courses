@@ -19,7 +19,7 @@
       <BenderStatistics :character-list="characterList" />
     </template>
     <template #favorites>
-      <h2 v-if="favouriteCharacters.length">Favourite Characters</h2>
+      <p v-if="favouriteCharacters.length === 0">None yet</p>
       <ul>
         <li v-for="character in favouriteCharacters" :key="character.name">
           {{ character.name }} - {{ character.element }}

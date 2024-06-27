@@ -20,7 +20,14 @@
       <slot name="statistics" />
     </CardContent>
   </Card>
-  <slot name="favorites" />
+  <Card class="mb-4">
+    <CardHeader>
+      <CardTitle>Favourite Characters</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <slot name="favorites" />
+    </CardContent>
+  </Card>
 </template>
 <script lang="ts" setup>
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
