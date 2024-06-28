@@ -29,53 +29,33 @@
   </AvatarLayout>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
+<script setup lang="ts">
+import { ref } from 'vue'
 import BenderStatistics from './BenderStatistics.vue'
 import AddCharacter from './AddCharacter.vue'
 import AvatarLayout from './AvatarLayout.vue'
 import type { Character } from '@/models/Character.type'
 import { Button } from '@/components/ui/button'
 
-export default defineComponent({
-  name: 'AvatarCharacters',
-  components: {
-    BenderStatistics,
-    AddCharacter,
-    AvatarLayout,
-    // eslint-disable-next-line vue/no-reserved-component-names
-    Button
-  },
-  setup() {
-    const characterList = ref<Character[]>([
-      { name: 'Aang', element: ['Fire', 'Water', 'Earth', 'Air'] },
-      { name: 'Katara', element: ['Water'] },
-      { name: 'Sokka', element: [] },
-      { name: 'Toph', element: ['Earth'] },
-      { name: 'Zuko', element: ['Fire'] },
-      { name: 'Azula', element: ['Fire'] }
-    ])
-    const favouriteCharacters = ref<Character[]>([])
+const characterList = ref<Character[]>([
+  { name: 'Aang', element: ['Fire', 'Water', 'Earth', 'Air'] },
+  { name: 'Katara', element: ['Water'] },
+  { name: 'Sokka', element: [] },
+  { name: 'Toph', element: ['Earth'] },
+  { name: 'Zuko', element: ['Fire'] },
+  { name: 'Azula', element: ['Fire'] }
+])
+const favouriteCharacters = ref<Character[]>([])
 
-    const addCharacter = (name: string) => {
-      characterList.value.push({ name, element: [] })
-    }
+const addCharacter = (name: string) => {
+  characterList.value.push({ name, element: [] })
+}
 
-    const addFavouriteCharacter = (character: Character) => {
-      if (!favouriteCharacters.value.map((char) => char.name).includes(character.name)) {
-        favouriteCharacters.value.push(character)
-      }
-    }
-
-    return {
-      characterList,
-      addCharacter,
-
-      favouriteCharacters,
-      addFavouriteCharacter
-    }
+const addFavouriteCharacter = (character: Character) => {
+  if (!favouriteCharacters.value.map((char) => char.name).includes(character.name)) {
+    favouriteCharacters.value.push(character)
   }
-})
+}
 </script>
 
 <style scoped>

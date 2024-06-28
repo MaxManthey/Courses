@@ -7,35 +7,20 @@
   />
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
+<script setup lang="ts">
+import { ref } from 'vue'
 import { Input } from '@/components/ui/input'
 
-export default defineComponent({
-  name: 'AddCharacter',
-  components: {
-    // eslint-disable-next-line vue/no-reserved-component-names
-    Input
-  },
-  emits: {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    createCharacter: (_name: string) => true
-  },
-  setup(_, { emit }) {
-    let newCharacter = ref<string>('')
+const emit = defineEmits<{
+  (e: 'createCharacter', name: string): void
+}>()
 
-    const addCharacter = () => {
-      emit('createCharacter', newCharacter.value)
-      newCharacter.value = ''
-    }
+let newCharacter = ref<string>('')
 
-    return {
-      newCharacter,
-      emit,
-      addCharacter
-    }
-  }
-})
+const addCharacter = () => {
+  emit('createCharacter', newCharacter.value)
+  newCharacter.value = ''
+}
 </script>
 
 <style scoped></style>
