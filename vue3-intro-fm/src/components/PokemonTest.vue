@@ -1,6 +1,6 @@
 <template>
   <div class="pokemon-wrapper">
-    <Card v-for="pokemon in pokedex.results" :key="pokemon.name" class="">
+    <Card v-for="pokemon in pokedex.results" :key="pokemon.name" class="pokemon-card">
       <CardHeader>
         <CardTitle>{{ upperCaseName(pokemon.name) }}</CardTitle>
       </CardHeader>
