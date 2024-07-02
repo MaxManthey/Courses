@@ -36,15 +36,8 @@ import AddCharacter from './AddCharacter.vue'
 import AvatarLayout from './AvatarLayout.vue'
 import type { Character } from '@/models/Character.type'
 import { Button } from '@/components/ui/button'
+import { characterList } from '@/composables/useCharacterList'
 
-const characterList = ref<Character[]>([
-  { name: 'Aang', element: ['Fire', 'Water', 'Earth', 'Air'] },
-  { name: 'Katara', element: ['Water'] },
-  { name: 'Sokka', element: [] },
-  { name: 'Toph', element: ['Earth'] },
-  { name: 'Zuko', element: ['Fire'] },
-  { name: 'Azula', element: ['Fire'] }
-])
 const favouriteCharacters = ref<Character[]>([])
 
 const addCharacter = (name: string) => {
