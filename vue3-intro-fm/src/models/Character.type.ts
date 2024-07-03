@@ -1,4 +1,6 @@
 export type Character = {
   name: string
-  element: Array<'Fire' | 'Water' | 'Earth' | 'Air'>
+  element: Elements
 }
+
+export type Elements = Array<'Fire' | 'Water' | 'Earth' | 'Air'>
