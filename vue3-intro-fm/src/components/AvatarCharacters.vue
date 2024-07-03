@@ -40,8 +40,8 @@ import { characterList } from '@/composables/useCharacterList'
 
 const favouriteCharacters = ref<Character[]>([])
 
-const addCharacter = (name: string) => {
-  characterList.value.push({ name, element: [] })
+const addCharacter = (character: Character) => {
+  characterList.value.push(character)
 }
 
 const addFavouriteCharacter = (character: Character) => {
