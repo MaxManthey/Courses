@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import PokemonTest from '../components/PokemonTest.vue'
+import PokedexGrid from '../components/PokedexGrid.vue'
 </script>
 
 <template>
   <main>
-    <PokemonTest />
+    <PokedexGrid />
   </main>
 </template>
