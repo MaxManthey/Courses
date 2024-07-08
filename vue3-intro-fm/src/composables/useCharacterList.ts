@@ -7,5 +7,5 @@ export const characterList = ref<Character[]>([
   { name: 'Sokka', element: [] },
   { name: 'Toph', element: ['Earth'] },
   { name: 'Zuko', element: ['Fire'] },
-  { name: 'Azula', element: ['Fire'] }
+  { name: 'Iroh', element: ['Fire'] }
 ])

@@ -9,7 +9,7 @@ export async function fetchPokemonById(url: string) {
   }
 }
 
-function transformToPokemon(data: any): Pokemon {
+export function transformToPokemon(data: any): Pokemon {
   return {
     id: data.id,
     name: upperCaseName(data.name),
