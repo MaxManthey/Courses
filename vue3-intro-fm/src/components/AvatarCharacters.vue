@@ -2,9 +2,15 @@
   <AvatarLayout>
     <template #character-list>
       <ul class="margin-bottom">
-        <li v-for="character in characterList" :key="character.name">
+        <li v-for="character in avatarStore.characterList" :key="character.name">
           <div class="all-characters">
-            <p>{{ character.name }} - {{ character.element }}</p>
+            <p>
+              {{ character.name }} -
+              <span v-for="element in character.element" :key="element" class="mr-1">{{
+                ELEMENT_ICON_MAP[element]
+              }}</span>
+              <span v-if="character.element.length === 0">{{ ELEMENT_ICON_MAP['None'] }}</span>
+            </p>
             <Button severity="secondary" @click="addFavouriteCharacter(character)"
               >Favourite</Button
             >
@@ -16,13 +22,17 @@
       <AddCharacter @createCharacter="addCharacter" />
     </template>
     <template #statistics>
-      <BenderStatistics :character-list="characterList" />
+      <BenderStatistics :character-list="avatarStore.characterList" />
     </template>
     <template #favorites>
       <p v-if="favouriteCharacters.length === 0">None yet</p>
       <ul>
         <li v-for="character in favouriteCharacters" :key="character.name">
-          {{ character.name }} - {{ character.element }}
+          {{ character.name }} -
+          <span v-for="element in character.element" :key="element" class="mr-1">{{
+            ELEMENT_ICON_MAP[element]
+          }}</span>
+          <span v-if="character.element.length === 0">{{ ELEMENT_ICON_MAP['None'] }}</span>
         </li>
       </ul>
     </template>
@@ -34,14 +44,16 @@ import { ref } from 'vue'
 import BenderStatistics from './BenderStatistics.vue'
 import AddCharacter from './AddCharacter.vue'
 import AvatarLayout from './AvatarLayout.vue'
-import type { Character } from '@/models/Character.type'
+import { ELEMENT_ICON_MAP, type Character } from '@/models/Character.type'
 import { Button } from '@/components/ui/button'
-import { characterList } from '@/composables/useCharacterList'
+import { useAvatarStore } from '@/stores/avatar'
+
+const avatarStore = useAvatarStore()
 
 const favouriteCharacters = ref<Character[]>([])
 
 const addCharacter = (character: Character) => {
-  characterList.value.push(character)
+  avatarStore.addCharacter(character)
 }
 
 const addFavouriteCharacter = (character: Character) => {
